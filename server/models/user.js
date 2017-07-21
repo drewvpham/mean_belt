@@ -23,7 +23,8 @@ let UserSchema = new mongoose.Schema({
        type: mongoose.Schema.Types.ObjectId,
        ref: 'Bike'
     }]
-}, { timestamps: true });
+},
+ { timestamps: true });
 
 UserSchema.pre('save', function(next){
     this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
