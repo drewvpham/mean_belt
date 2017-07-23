@@ -1,22 +1,23 @@
-let express = require('express');
-let bp = require('body-parser');
-let session = require('express-session');
+let express = require("express");
+let bp = require("body-parser");
+let morgan = require('morgan');
+let session = require("express-session");
+let port = 8000;
 
 let app = express();
+
+app.use(express.static(__dirname + "/public/dist"));
+app.use(bp.json());
+app.use(morgan('tiny'));
 app.use(session({
-    secret: 'supersecret',
+    secret: 'mysecret',
     resave: false,
     saveUninitialized: true,
     cookie: {}
 }))
 
-app.use(bp.json());
-
-// app.use(express.static(__dirname + '/public/dist'))
-
 require('./server/config/mongoose');
+
 require('./server/config/routes')(app);
 
-app.listen(8000, function(){
-    console.log('listening on port 8000...')
-})
+app.listen(port, () => { console.log(`listening on ${port}...`) });
