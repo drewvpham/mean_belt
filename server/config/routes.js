@@ -1,22 +1,22 @@
 let path = require('path');
-let Users = require('./../controllers/users')
-// let Bikes = require('./../controllers/bikes')
+let Users = require('../controllers/users');
+let Answers = require('../controllers/Answers');
+let Questions = require('../controllers/questions');
 
 module.exports = function(app){
-    app.get('/users', Users.index);
     app.post('/users', Users.create);
-    app.get('/users/:id', Users.show);
-    app.delete('/users/:id', Users.logout);
 
-    app.get('/session', Users.session);
-    app.post('/session', Users.authenticate);
+    app.get('/sessions', Users.session);
+    app.post('/sessions', Users.authenticate);
+    app.delete('/sessions/:id', Users.logout);
 
-    // app.get('/bikes', Bikes.index);
-    // app.post('/bikes', Bikes.create);
-    // app.patch('/bikes/:id', Bikes.update);
-    // app.delete('/bikes/:id', Bikes.destroy);
+    app.get('/questions', Questions.index);
+    app.post('/questions', Questions.create);
+    app.get('/questions/:id', Questions.show);
 
-    app.all('*', function(req, res, next){
-        res.sendFile(path.resolve('./public/dist/index.html'))
+    app.post('/answers', Answers.create);
+
+    app.all('*', (req, res, next) => {
+        res.sendFile(path.resolve('./public/dist/index.html'));
     })
 }

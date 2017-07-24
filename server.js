@@ -17,7 +17,7 @@ app.use(session({
 }))
 
 require('./server/config/mongoose');
-
+//
 require('./server/config/routes')(app);
 
 app.listen(port, () => { console.log(`listening on ${port}...`) });

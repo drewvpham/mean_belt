@@ -3,7 +3,7 @@ let fs = require('fs');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/meanbelt01', { useMongoClient: true })
+mongoose.connect('mongodb://localhost/meanbeltt', { useMongoClient: true })
 
 let models_path = __dirname + '/../models';
 

@@ -1,39 +1,13 @@
 let mongoose = require('mongoose');
-let bcrypt = require('bcryptjs');
 
 let UserSchema = new mongoose.Schema({
-    first_name: {
+    name: {
         type: String,
-        required: [true, 'First name cannot be blank']
+        required: [true, 'Name cannot be blank']
     },
-    last_name: {
-        type: String,
-        required: [true, 'Last name cannot be blank']
-    },
-    email: {
-        type: String,
-        required: [true, 'Email cannot be blank'],
-        unique: [true, 'Email is already registered']
-    },
-    password: {
-        type: String,
-        required: [true, 'Password cannot be blank']
-    },
-    bikes: [{
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Bike'
-    }]
-},
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
+    answers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}]
+  },
  { timestamps: true });
-
-UserSchema.pre('save', function(next){
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
-    next();
-})
-
-UserSchema.methods.authenticate = function(password){
-    return bcrypt.compareSync(password, this.password);
-}
-
 
 mongoose.model('User', UserSchema);
